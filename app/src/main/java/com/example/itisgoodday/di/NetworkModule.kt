@@ -21,7 +21,7 @@ fun provideDefaultOkhttpClient(): OkHttpClient {
 
 fun provideRetrofit(client: OkHttpClient): Retrofit {
     return Retrofit.Builder()
-        .baseUrl(BuildConfig.DOMINIO)
+        .baseUrl("")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

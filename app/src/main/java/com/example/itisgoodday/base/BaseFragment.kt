@@ -13,9 +13,4 @@ abstract class BaseFragment : Fragment() {
     }
 
     abstract fun getLayout(): Int
-
-    inline fun <reified T : ViewModel> getViewModel(): T =
-        ViewModelProviders.of(this, getViewModelFactory()).get(T::class.java)
-
-    abstract fun getViewModelFactory(): ViewModelProvider.NewInstanceFactory
 }

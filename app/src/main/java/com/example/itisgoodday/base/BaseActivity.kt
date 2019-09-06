@@ -14,10 +14,5 @@ abstract class BaseActivity : AppCompatActivity(){
         setContentView(getLayout())
     }
 
-    inline fun <reified T : ViewModel> getViewModel(): T =
-        ViewModelProviders.of(this, getViewModelFactory()).get(T::class.java)
-
-    abstract fun getViewModelFactory(): ViewModelProvider.NewInstanceFactory
-
     abstract fun getLayout(): Int
 }
