@@ -30,4 +30,8 @@ class MainActivity : BaseActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
     }
+
+    companion object {
+        const val SAVE_SETTINGS = "Settings"
+    }
 }

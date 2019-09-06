@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.os.Message
 import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 
@@ -15,4 +16,8 @@ abstract class BaseActivity : AppCompatActivity(){
     }
 
     abstract fun getLayout(): Int
+
+    fun showErrorMessage(errorMessage: String){
+        this.showErrorMessage(errorMessage)
+    }
 }
