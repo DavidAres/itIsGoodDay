@@ -22,6 +22,11 @@ android {
     }
 }
 
+ext{
+    retrofitVersion = '2.6.0'
+    retrofitVersionMoshi = "2.1.0"
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -32,4 +37,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    // Koin for Kotlin apps
+    implementation 'org.koin:koin-core:2.0.1'
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersionMoshi"
+    implementation 'com.squareup.okhttp3:okhttp:3.5.0'
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
 }
