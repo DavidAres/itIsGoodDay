@@ -1,9 +1,9 @@
 package com.example.itisgoodday.home.interfaces
 
-import com.example.itisgoodday.data.ErrorSettings
-import com.example.itisgoodday.data.Settings
-import com.example.itisgoodday.data.ErrorWeather
-import com.example.itisgoodday.data.Weather
+import com.example.itisgoodday.models.ErrorSettings
+import com.example.itisgoodday.models.Settings
+import com.example.itisgoodday.models.ErrorWeather
+import com.example.itisgoodday.models.Weather
 
 interface IHomeFragment {
     fun manageSettingsError(error : ErrorSettings)

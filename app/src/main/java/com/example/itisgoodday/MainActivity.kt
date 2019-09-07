@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import com.example.itisgoodday.base.BaseActivity
+import com.example.itisgoodday.home.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -15,6 +16,10 @@ class MainActivity : BaseActivity() {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
+                val ft = supportFragmentManager.beginTransaction()
+                val homeFragment = HomeFragment()
+                ft.replace(fragmentContainer.id, homeFragment)
+                ft.commit()
                 return@OnNavigationItemSelectedListener true
             }
 
@@ -29,6 +34,11 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+
+        val ft = supportFragmentManager.beginTransaction()
+        val homeFragment = HomeFragment()
+        ft.replace(fragmentContainer.id, homeFragment)
+        ft.commit()
     }
 
     companion object {

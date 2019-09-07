@@ -5,16 +5,16 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
 import com.example.itisgoodday.MainActivity.Companion.SAVE_SETTINGS
-import com.example.itisgoodday.data.ErrorSettings
-import com.example.itisgoodday.data.ErrorWeather
-import com.example.itisgoodday.data.Settings
-import com.example.itisgoodday.data.Weather
-import com.example.itisgoodday.domain.WeatherRepository
+import com.example.itisgoodday.models.ErrorSettings
+import com.example.itisgoodday.models.ErrorWeather
+import com.example.itisgoodday.models.Settings
+import com.example.itisgoodday.models.Weather
+import com.example.itisgoodday.repositories.WeatherRepository
 import com.example.itisgoodday.home.interfaces.IHomeViewModel
-import com.example.itisgoodday.network.ApiEndPoints
 import com.example.itisgoodday.tools.Either
 import com.example.itisgoodday.tools.PreferencesManager
-import retrofit2.Retrofit
+import com.google.gson.Gson
+import kotlinx.coroutines.*
 
 class HomeViewModel (var context: Context, var weatherRepository: WeatherRepository) : ViewModel(), IHomeViewModel {
 
@@ -27,12 +27,13 @@ class HomeViewModel (var context: Context, var weatherRepository: WeatherReposit
 
     override fun restoreSetting() {
         var settings = PreferencesManager.restoreString(context, SAVE_SETTINGS )
-        if (settings.isNullOrEmpty())
-            Either.Error(ErrorSettings.EMPTY_SETTINGS)
-        else
-            Either.Success(settings)
+        restoreSettingsLiveData.postValue(if (settings.isNullOrEmpty())
+            Either.Error(ErrorSettings.EMPTY_SETTINGS) else Either.Success(Gson().fromJson(settings, Settings::class.java)))
     }
 
-    override fun getWeatherInformation(lat: Float, long: Float) {
+    override fun getWeatherInformation(lat: String, long: String) {
+        CoroutineScope(Dispatchers.Default).launch {
+            weatherLiveData.postValue((weatherRepository.getWeatherData(lat, long)))
+        }
     }
 }

@@ -3,34 +3,38 @@ package com.example.itisgoodday.home
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.widget.Toast
+import com.example.itisgoodday.R
 import com.example.itisgoodday.base.BaseFragment
-import com.example.itisgoodday.data.ErrorSettings
-import com.example.itisgoodday.data.Settings
-import com.example.itisgoodday.data.ErrorWeather
-import com.example.itisgoodday.data.Weather
+import com.example.itisgoodday.models.ErrorSettings
+import com.example.itisgoodday.models.Settings
+import com.example.itisgoodday.models.ErrorWeather
+import com.example.itisgoodday.models.Weather
 import com.example.itisgoodday.home.interfaces.IHomeFragment
 import com.example.itisgoodday.tools.toast
+import org.koin.android.ext.android.getKoin
+import org.koin.android.ext.android.inject
 import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.getViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment(), IHomeFragment {
-    private val homeViewModel : HomeViewModel by currentScope.viewModel(this)
-    lateinit var settings : Settings
+    //private val homeViewModel : HomeViewModel by currentScope.viewModel(this)
+    val homeViewModel : HomeViewModel by inject()
+    //private val HomeViewModel: HomeViewModel by viewModel( scope = getKoin().getScope("TEST") )
+    private lateinit var settings : Settings
 
-    override fun getLayout(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getLayout(): Int = R.layout.home_fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        homeViewModel.restoreSetting()
+        //homeViewModel.restoreSetting()
         homeViewModel.stateSettings.observe(this, Observer {
             it?.either(::manageSettingsError, ::saveSettingsAndLoad)
         })
         homeViewModel.stateWeather.observe(this, Observer {
             it?.either(::manageWeatherError, ::compareResults)
         })
+        homeViewModel.getWeatherInformation( "37.8267","-122.4233")
     }
 
     override fun manageSettingsError(error: ErrorSettings) {
@@ -48,11 +52,11 @@ class HomeFragment : BaseFragment(), IHomeFragment {
 
     override fun saveSettingsAndLoad(settings: Settings) {
         this.settings = settings
-        homeViewModel.getWeatherInformation(0,0)
+        homeViewModel.getWeatherInformation( "37.8267","-122.4233")
     }
 
     override fun compareResults(weather: Weather) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        context?.toast(weather.daily.data[0].toString())
     }
 
 }

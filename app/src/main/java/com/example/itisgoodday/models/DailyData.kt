@@ -1,4 +1,4 @@
-package com.example.itisgoodday.data
+package com.example.itisgoodday.models
 
 import com.google.gson.annotations.SerializedName
 
@@ -9,7 +9,7 @@ data class DailyData (
     var minTemperature : Float,
     @SerializedName("precipProbability")
     var rainProbability : Float,
-    @SerializedName("precipProbability")
+    @SerializedName("windSpeed")
     var windSpeed : Float
 )
 
