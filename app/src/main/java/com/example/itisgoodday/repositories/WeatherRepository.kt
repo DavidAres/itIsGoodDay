@@ -8,28 +8,30 @@ import kotlinx.coroutines.*
 import retrofit2.HttpException
 import retrofit2.Response
 import retrofit2.Retrofit
+import kotlin.coroutines.resume
 
 class WeatherRepository (var apiEndPoints: ApiEndPoints) : IWeatherRepository {
-    override suspend fun getWeatherData(lat: String, long: String): Either<ErrorWeather, Weather> {
-        var either : Either<ErrorWeather, Weather>? = null
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = apiEndPoints.getWeather()
-            withContext(Dispatchers.IO) {
-                either = try {
-                    if (response.isSuccessful) {
-                        var weather = response.body()
-                        Either.Success(weather!!)
-                    } else {
-                        Either.Error(ErrorWeather.LOAD_ERROR)
-                    }
-                } catch (e: HttpException) {
-                    Either.Error(ErrorWeather.LOAD_ERROR)
-                } catch (e: Throwable) {
-                    Either.Error(ErrorWeather.LOAD_ERROR)
-                }
-            }
-        }.join()
+    var either : Either<ErrorWeather, Weather>? = null
 
-        return either!!
+    override suspend fun getWeatherData(lat: String, long: String) : Either<ErrorWeather, Weather> = suspendCancellableCoroutine { continuation ->
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = apiEndPoints.getWeather("$lat,$long")
+            try {
+              if (response.isSuccessful) {
+                    var weather = response.body()
+                    either = Either.Success(weather!!)
+                    continuation.resume(either!!)
+                } else {
+                      either = Either.Error(ErrorWeather.LOAD_ERROR)
+                      continuation.resume(either!!)
+                }
+            } catch (e: HttpException) {
+                either = Either.Error(ErrorWeather.LOAD_ERROR)
+                continuation.resume(either!!)
+            } catch (e: Throwable) {
+                either = Either.Error(ErrorWeather.LOAD_ERROR)
+                continuation.resume(either!!)
+            }
+        }
     }
 }
