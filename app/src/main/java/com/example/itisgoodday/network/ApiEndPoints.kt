@@ -12,7 +12,6 @@ import retrofit2.http.Path
 
 
 interface ApiEndPoints{
-
     @GET("/forecast/b72d5148071181ee327ef946a4ada0d8/37.8267,-122.4233")
     suspend fun getWeather(): Response<Weather>
 }

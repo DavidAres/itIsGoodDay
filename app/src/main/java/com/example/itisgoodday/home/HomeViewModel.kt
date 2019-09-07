@@ -27,8 +27,10 @@ class HomeViewModel (var context: Context, var weatherRepository: WeatherReposit
 
     override fun restoreSetting() {
         var settings = PreferencesManager.restoreString(context, SAVE_SETTINGS )
-        restoreSettingsLiveData.postValue(if (settings.isNullOrEmpty())
-            Either.Error(ErrorSettings.EMPTY_SETTINGS) else Either.Success(Gson().fromJson(settings, Settings::class.java)))
+        restoreSettingsLiveData.postValue(
+            if (settings.isNullOrEmpty())
+                Either.Error(ErrorSettings.EMPTY_SETTINGS)
+            else Either.Success(Gson().fromJson(settings, Settings::class.java)))
     }
 
     override fun getWeatherInformation(lat: String, long: String) {

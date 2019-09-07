@@ -6,7 +6,10 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.Message
 import android.os.PersistableBundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import com.example.itisgoodday.settings.SettingsFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 //Create a base activity allow us to avoid the same declaration for each activity that we create
 abstract class BaseActivity : AppCompatActivity(){
@@ -17,7 +20,9 @@ abstract class BaseActivity : AppCompatActivity(){
 
     abstract fun getLayout(): Int
 
-    fun showErrorMessage(errorMessage: String){
-        this.showErrorMessage(errorMessage)
+    fun replaceFragment(fragment : Fragment, id : Int ){
+        val ft = supportFragmentManager.beginTransaction()
+        ft.replace(id, fragment)
+        ft.commit()
     }
 }
