@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -11,7 +10,7 @@
         android:textSize="14sp"
         android:layout_margin="18dp"
         android:textStyle="bold"
-        android:text="HOME"
+        android:text="Checking..."
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textColor="@color/colorPrimary"

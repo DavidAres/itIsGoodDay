@@ -53,7 +53,6 @@ class HomeFragment : BaseFragment(), IHomeFragment {
                 animationForResult.loop(true)
             }
         })
-        homeViewModel.getWeatherInformation( "37.8267","-122.4233")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -81,7 +80,7 @@ class HomeFragment : BaseFragment(), IHomeFragment {
 
     override fun saveSettingsAndLoad(settings: Settings) {
         this.settings = settings
-        homeViewModel.getWeatherInformation( "37.8267","-122.4233")
+        homeViewModel.getWeatherInformation( settings.city!!.lat, settings.city!!.long)
     }
 
     override fun compareResults(weather: Weather) {
