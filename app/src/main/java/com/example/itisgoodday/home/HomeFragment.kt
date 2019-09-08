@@ -14,6 +14,7 @@ import com.example.itisgoodday.home.interfaces.IHomeFragment
 import com.example.itisgoodday.settings.SettingsFragment
 import com.example.itisgoodday.tools.toast
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.home_fragment.*
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.android.inject
 import org.koin.android.scope.currentScope
@@ -28,12 +29,18 @@ class HomeFragment : BaseFragment(), IHomeFragment {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //homeViewModel.restoreSetting()
+        homeViewModel.restoreSetting()
         homeViewModel.stateSettings.observe(this, Observer {
             it?.either(::manageSettingsError, ::saveSettingsAndLoad)
         })
         homeViewModel.stateWeather.observe(this, Observer {
             it?.either(::manageWeatherError, ::compareResults)
+        })
+        homeViewModel.stateDay.observe(this, Observer {
+            if (it!!)
+                homeFragmentTitle.text = "GOOD DAY!"
+            else
+                homeFragmentTitle.text = "BAD DAY!"
         })
         homeViewModel.getWeatherInformation( "37.8267","-122.4233")
     }
@@ -60,7 +67,7 @@ class HomeFragment : BaseFragment(), IHomeFragment {
     }
 
     override fun compareResults(weather: Weather) {
-        context?.toast(weather.daily.data[0].toString())
+        homeViewModel.calculateDay(weather)
     }
 
 }

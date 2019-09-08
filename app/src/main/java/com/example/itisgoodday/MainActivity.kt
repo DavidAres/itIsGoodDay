@@ -35,8 +35,4 @@ class MainActivity : BaseActivity() {
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         replaceFragment( HomeFragment(), fragmentContainer.id)
     }
-
-    companion object {
-        const val SAVE_SETTINGS = "Settings"
-    }
 }

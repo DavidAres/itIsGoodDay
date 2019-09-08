@@ -22,6 +22,7 @@ abstract class BaseActivity : AppCompatActivity(){
 
     fun replaceFragment(fragment : Fragment, id : Int ){
         val ft = supportFragmentManager.beginTransaction()
+        ft.addToBackStack(null)
         ft.replace(id, fragment)
         ft.commit()
     }

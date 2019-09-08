@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/settingsFragmentTitle"
+        android:id="@+id/homeFragmentTitle"
         android:layout_width="wrap_content"
         android:textSize="14sp"
         android:layout_margin="18dp"

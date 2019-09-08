@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+<RelativeLayout
     android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent">
 
     <TextView
@@ -10,7 +13,7 @@
         android:textSize="14sp"
         android:layout_margin="18dp"
         android:textStyle="bold"
-        android:text="SETTINGS"
+        android:text="How is a good day for you?"
         android:textColor="@color/colorPrimary"
         android:layout_height="wrap_content" />
 
@@ -31,7 +34,7 @@
             android:textSize="16sp"/>
 
         <Switch
-            android:id="@+id/settingsFragmentEnableWindSwitch"
+            android:id="@+id/windyDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -59,7 +62,7 @@
             android:textSize="16sp"/>
 
         <Switch
-            android:id="@+id/settingsFragmentEnableRainSwitch"
+            android:id="@+id/rainyDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -71,19 +74,75 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/settingsFragmentTemperature"
+        android:id="@+id/settingsFragmentMinTemperature"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="15dp"
         android:paddingLeft="16dp"
         android:layout_below="@+id/settingsFragmentEnableRainRL">
+
+        <TextView
+            android:id="@+id/settingsFragmentMinTemperatureTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Min Temperature"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"/>
+
+        <SeekBar
+            android:id="@+id/minTemperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:min="0"
+            android:max="45"
+            android:layout_below="@+id/settingsFragmentMinTemperatureTextView"
+            android:layout_margin="25dp" />
+
+        <TextView
+            android:id="@+id/minTemperatureValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/minTemperature"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/settingsFragmentTemperature"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="16dp"
+        android:layout_below="@+id/settingsFragmentMinTemperature">
 
         <TextView
             android:id="@+id/settingsFragmentTemperatureTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Temperature"
+            android:text="Max Temperature"
             android:textColor="@color/colorPrimary"
-            android:layout_centerVertical="true"
+            android:textSize="16sp"/>
+
+        <SeekBar
+            android:id="@+id/maxTemperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:min="0"
+            android:max="45"
+            android:layout_below="@+id/settingsFragmentTemperatureTextView"
+            android:layout_margin="25dp" />
+
+        <TextView
+            android:id="@+id/maxTemperatureValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/maxTemperature"
+            android:textColor="@color/colorPrimary"
             android:textSize="16sp"/>
 
     </RelativeLayout>
@@ -97,13 +156,14 @@
         android:layout_below="@+id/settingsFragmentTemperature">
 
         <Button
+            android:id="@+id/saveSettingsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:textColor="@color/colorPrimaryDark"
-            android:text="Send"
-            android:id="@+id/saveSettings"
+            android:text="Save"
         ></Button>
 
     </RelativeLayout>
 </RelativeLayout>
+</ScrollView>
