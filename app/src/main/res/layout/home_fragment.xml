@@ -10,7 +10,7 @@
         android:textSize="14sp"
         android:layout_margin="18dp"
         android:textStyle="bold"
-        android:text="Checking..."
+        android:text="@string/checking"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textColor="@color/colorPrimary"

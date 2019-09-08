@@ -41,14 +41,14 @@ class HomeFragment : BaseFragment(), IHomeFragment {
         })
         homeViewModel.stateDay.observe(this, Observer {
             if (it!!) {
-                homeFragmentTitle.text = "Is a good day"
+                homeFragmentTitle.text = getString(R.string.good_day_response) + " " + settings.city!!.name
                 animationForResult.setAnimation("1173-sun-burst-weather-icon.json")
                 animationForResult.playAnimation()
                 animationForResult.loop(true)
             }
             else{
-                homeFragmentTitle.text = "Is a bad day"
-                animationForResult.setAnimation("502-cloud.json")
+                homeFragmentTitle.text =  getString(R.string.bad_day_response) + " " + settings.city!!.name
+                animationForResult.setAnimation("4803-weather-storm.json")
                 animationForResult.playAnimation()
                 animationForResult.loop(true)
             }
@@ -56,7 +56,7 @@ class HomeFragment : BaseFragment(), IHomeFragment {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        (activity as MainActivity).supportActionBar?.title = "It is a good day"
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.home_title)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -64,17 +64,21 @@ class HomeFragment : BaseFragment(), IHomeFragment {
     override fun manageSettingsError(error: ErrorSettings) {
         when (error) {
             ErrorSettings.EMPTY_SETTINGS -> {
-                context?.toast("You do not have settings yet, please enter how is a good day for you", Toast.LENGTH_LONG)
+                context?.toast(getString(R.string.empty_settings), Toast.LENGTH_LONG)
                 (activity as MainActivity).nav_view.menu.getItem(1).isChecked = true
                 (activity as MainActivity).replaceFragment(SettingsFragment(), (activity as MainActivity).fragmentContainer.id)
             }
-            ErrorSettings.LOAD_ERROR_SETTINGS -> context?.toast("Something was wrong with your settings!, we should add again...")
+            ErrorSettings.LOAD_ERROR_SETTINGS -> {
+                context?.toast(getString(R.string.error_load_settings))
+                (activity as MainActivity).nav_view.menu.getItem(1).isChecked = true
+                (activity as MainActivity).replaceFragment(SettingsFragment(), (activity as MainActivity).fragmentContainer.id)
+            }
         }
     }
 
     override fun manageWeatherError(error: ErrorWeather) {
         when (error){
-            ErrorWeather.LOAD_ERROR -> context?.toast("We cannot load the weather for today, sorry", Toast.LENGTH_LONG)
+            ErrorWeather.LOAD_ERROR -> context?.toast(getString(R.string.error_load_weather), Toast.LENGTH_LONG)
         }
     }
 
@@ -85,6 +89,16 @@ class HomeFragment : BaseFragment(), IHomeFragment {
 
     override fun compareResults(weather: Weather) {
         homeViewModel.calculateDay(weather)
+    }
+
+    override fun onDestroy() {
+        if (homeViewModel.stateDay.hasObservers() && homeViewModel.stateDay.hasActiveObservers())
+            homeViewModel.stateDay.removeObservers(this)
+        if (homeViewModel.stateSettings.hasObservers() && homeViewModel.stateSettings.hasActiveObservers())
+            homeViewModel.stateSettings.removeObservers(this)
+        if (homeViewModel.stateWeather.hasObservers() && homeViewModel.stateWeather.hasActiveObservers())
+            homeViewModel.stateWeather.removeObservers(this)
+        super.onDestroy()
     }
 
 }

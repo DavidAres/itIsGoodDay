@@ -13,7 +13,7 @@
         android:textSize="14sp"
         android:layout_margin="18dp"
         android:textStyle="bold"
-        android:text="How is a good day for you?"
+        android:text="@string/subtitle_settings"
         android:textColor="@color/colorPrimary"
         android:layout_height="wrap_content" />
 
@@ -28,7 +28,7 @@
             android:id="@+id/settingsFragmentCitiesLIstText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cities"
+            android:text="@string/cities"
             android:textColor="@color/colorPrimary"
             android:layout_centerHorizontal="true"
             android:textSize="16sp"/>
@@ -52,7 +52,7 @@
             android:id="@+id/settingsFragmentEnableWindTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wind day"
+            android:text="@string/windy_day"
             android:textColor="@color/colorPrimary"
             android:layout_centerVertical="true"
             android:textSize="16sp"/>
@@ -80,7 +80,7 @@
             android:id="@+id/settingsFragmentEnableRainTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rain day"
+            android:text="@string/rainy_day"
             android:textColor="@color/colorPrimary"
             android:layout_centerVertical="true"
             android:textSize="16sp"/>
@@ -100,7 +100,7 @@
     <RelativeLayout
         android:id="@+id/settingsFragmentMinTemperature"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         android:layout_marginTop="15dp"
         android:paddingLeft="16dp"
         android:layout_below="@+id/settingsFragmentEnableRainRL">
@@ -109,7 +109,7 @@
             android:id="@+id/settingsFragmentMinTemperatureTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Min Temperature"
+            android:text="@string/min_temperature"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"/>
 
@@ -137,8 +137,7 @@
     <RelativeLayout
         android:id="@+id/settingsFragmentTemperature"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="120dp"
         android:paddingLeft="16dp"
         android:layout_below="@+id/settingsFragmentMinTemperature">
 
@@ -146,7 +145,7 @@
             android:id="@+id/settingsFragmentTemperatureTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Max Temperature"
+            android:text="@string/max_temperature"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"/>
 

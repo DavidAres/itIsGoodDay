@@ -42,7 +42,7 @@ class SettingsFragment : BaseFragment(), ISettingsFragment {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        (activity as MainActivity).supportActionBar?.title = "Settings"
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.settings_title)
         inflater?.inflate(R.menu.send_option, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -82,7 +82,7 @@ class SettingsFragment : BaseFragment(), ISettingsFragment {
     }
 
     override fun manageErrorSave(error : ErrorSettings) {
-        context?.toast("Something was wrong saving the settings ,please try again")
+        context?.toast(getString(R.string.error_load_default_settings))
     }
 
     override fun redirectToHome(settings: Settings) {
@@ -111,5 +111,13 @@ class SettingsFragment : BaseFragment(), ISettingsFragment {
         }
         val adapter = this!!.activity?.let { CitiesSpinner(it, android.R.layout.simple_spinner_dropdown_item, list) }
         settingsFragmentCitiesSpinner.adapter = adapter
+    }
+
+    override fun onDestroy() {
+        if (settingsViewModel.stateRestore.hasObservers() && settingsViewModel.stateRestore.hasActiveObservers())
+            settingsViewModel.stateRestore.removeObservers(this)
+        if (settingsViewModel.stateSettings.hasObservers() && settingsViewModel.stateSettings.hasActiveObservers())
+            settingsViewModel.stateSettings.removeObservers(this)
+        super.onDestroy()
     }
 }

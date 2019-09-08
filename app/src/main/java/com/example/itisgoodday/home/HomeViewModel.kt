@@ -18,7 +18,7 @@ import kotlinx.coroutines.*
 import com.example.itisgoodday.tools.toCelsius
 
 
-class HomeViewModel (var context: Context, var weatherRepository: WeatherRepository) : ViewModel(), IHomeViewModel {
+class HomeViewModel (var context: Context, private var weatherRepository: WeatherRepository) : ViewModel(), IHomeViewModel {
     private var weatherLiveData = MutableLiveData<Either<ErrorWeather, Weather>>()
     private var restoreSettingsLiveData = MutableLiveData<Either<ErrorSettings, Settings>>()
     private var statusDayLiveData = MutableLiveData<Boolean>()
