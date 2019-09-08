@@ -2,6 +2,9 @@ package com.example.itisgoodday.settings
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.SeekBar
 import com.example.itisgoodday.MainActivity
@@ -23,6 +26,7 @@ class SettingsFragment : BaseFragment(), ISettingsFragment {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         settingsViewModel.stateSettings.observe(this, Observer {
             it?.either(::manageErrorSave, ::redirectToHome)
         })
@@ -32,9 +36,14 @@ class SettingsFragment : BaseFragment(), ISettingsFragment {
         settingsViewModel.restoreSettings()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        saveSettingsButton.setOnClickListener {
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        (activity as MainActivity).supportActionBar?.title = "Settings"
+        inflater?.inflate(R.menu.send_option, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item!!.itemId == R.id.checkToolbar){
             var settings = Settings()
             settings.rainyDay =rainyDay.isChecked
             settings.windyDay = windyDay.isChecked
@@ -42,7 +51,11 @@ class SettingsFragment : BaseFragment(), ISettingsFragment {
             settings.minTemperature = minTemperatureValue.text.split(" ")[0]
             settingsViewModel.saveSettings(settings)
         }
+        return super.onOptionsItemSelected(item)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         maxTemperature.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 maxTemperatureValue.text = "$i Cº"
@@ -65,6 +78,7 @@ class SettingsFragment : BaseFragment(), ISettingsFragment {
     }
 
     override fun redirectToHome(settings: Settings) {
+        (activity as MainActivity).nav_view.menu.getItem(0).isChecked = true
         (activity as MainActivity).replaceFragment(HomeFragment(), (activity as MainActivity).fragmentContainer.id)
     }
 

@@ -1,9 +1,7 @@
 package com.example.itisgoodday
 
-import android.arch.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import com.example.itisgoodday.base.BaseActivity
 import com.example.itisgoodday.home.HomeFragment
@@ -33,6 +31,9 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        replaceFragment( HomeFragment(), fragmentContainer.id)
+        val ft = supportFragmentManager.beginTransaction()
+        ft.addToBackStack(null)
+        ft.add( fragmentContainer.id,HomeFragment())
+        ft.commit()
     }
 }

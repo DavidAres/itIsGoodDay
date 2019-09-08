@@ -15,6 +15,8 @@ import com.example.itisgoodday.tools.Either
 import com.example.itisgoodday.tools.PreferencesManager
 import com.google.gson.Gson
 import kotlinx.coroutines.*
+import com.example.itisgoodday.tools.toCelsius
+
 
 class HomeViewModel (var context: Context, var weatherRepository: WeatherRepository) : ViewModel(), IHomeViewModel {
     private var weatherLiveData = MutableLiveData<Either<ErrorWeather, Weather>>()
@@ -51,9 +53,9 @@ class HomeViewModel (var context: Context, var weatherRepository: WeatherReposit
     override fun calculateDay(weather: Weather) {
         var dailyData = weather.daily.data[0]
         var matchCount : Int = 0
-        if (dailyData.maxTemperature - localSettings.maxTemperature.toInt() < 5)
+        if (dailyData.maxTemperature.toCelsius() - localSettings.maxTemperature.toInt() < 5)
             matchCount++
-        if (dailyData.minTemperature - localSettings.minTemperature.toInt() < 5)
+        if (dailyData.minTemperature.toCelsius() - localSettings.minTemperature.toInt() < 5)
             matchCount++
         if (dailyData.rainProbability > 1 && localSettings.rainyDay)
             matchCount++

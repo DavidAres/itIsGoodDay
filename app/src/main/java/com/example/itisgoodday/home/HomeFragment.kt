@@ -2,6 +2,8 @@ package com.example.itisgoodday.home
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.widget.Toast
 import com.example.itisgoodday.MainActivity
 import com.example.itisgoodday.R
@@ -28,6 +30,7 @@ class HomeFragment : BaseFragment(), IHomeFragment {
     override fun getLayout(): Int = R.layout.home_fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
         homeViewModel.restoreSetting()
         homeViewModel.stateSettings.observe(this, Observer {
@@ -37,18 +40,33 @@ class HomeFragment : BaseFragment(), IHomeFragment {
             it?.either(::manageWeatherError, ::compareResults)
         })
         homeViewModel.stateDay.observe(this, Observer {
-            if (it!!)
-                homeFragmentTitle.text = "GOOD DAY!"
-            else
-                homeFragmentTitle.text = "BAD DAY!"
+            if (it!!) {
+                homeFragmentTitle.text = "Is a good day"
+                animationForResult.setAnimation("1173-sun-burst-weather-icon.json")
+                animationForResult.playAnimation()
+                animationForResult.loop(true)
+            }
+            else{
+                homeFragmentTitle.text = "Is a bad day"
+                animationForResult.setAnimation("502-cloud.json")
+                animationForResult.playAnimation()
+                animationForResult.loop(true)
+            }
         })
         homeViewModel.getWeatherInformation( "37.8267","-122.4233")
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        (activity as MainActivity).supportActionBar?.title = "It is a good day"
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
 
     override fun manageSettingsError(error: ErrorSettings) {
         when (error) {
             ErrorSettings.EMPTY_SETTINGS -> {
                 context?.toast("You do not have settings yet, please enter how is a good day for you", Toast.LENGTH_LONG)
+                (activity as MainActivity).nav_view.menu.getItem(1).isChecked = true
                 (activity as MainActivity).replaceFragment(SettingsFragment(), (activity as MainActivity).fragmentContainer.id)
             }
             ErrorSettings.LOAD_ERROR_SETTINGS -> context?.toast("Something was wrong with your settings!, we should add again...")
