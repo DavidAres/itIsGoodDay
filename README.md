@@ -6,4 +6,4 @@ The main objective for "Is a good day application?" is to show if the current da
 
 The structure for this app is MVVM
 For the dependencies inject I use Koin (https://insert-koin.io/), it is easy to understand and easy to implement.
-For the services request I chose retrofit (https://square.github.io/retrofit/) library, and al the request are manage with coroutines.
+For the services request I chose retrofit (https://square.github.io/retrofit/) library, and all the request are manage with coroutines.
