@@ -75,6 +75,7 @@ class HomeFragment : BaseFragment(), IHomeFragment {
                     (activity as MainActivity).nav_view.menu.getItem(1).isChecked = true
                     (activity as MainActivity).replaceFragment(SettingsFragment(), (activity as MainActivity).fragmentContainer.id)
                 }
+                alert.setCancelable(false)
                 alert.show()
             }
             ErrorSettings.LOAD_ERROR_SETTINGS -> {

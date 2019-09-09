@@ -15,8 +15,8 @@ class WeatherRepository (var apiEndPoints: ApiEndPoints) : IWeatherRepository {
 
     override suspend fun getWeatherData(lat: String, long: String) : Either<ErrorWeather, Weather> = suspendCancellableCoroutine { continuation ->
         CoroutineScope(Dispatchers.IO).launch {
-            val response = apiEndPoints.getWeather("$lat,$long")
             try {
+                val response = apiEndPoints.getWeather("$lat,$long")
               if (response.isSuccessful) {
                     var weather = response.body()
                     either = Either.Success(weather!!)

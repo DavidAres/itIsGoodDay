@@ -42,7 +42,9 @@ class MainActivity : BaseActivity() {
         var currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
         if (currentFragment is HomeFragment) {
             this.finishAffinity()
+        }else{
+            super.onBackPressed()
         }
-        super.onBackPressed()
+
     }
 }
