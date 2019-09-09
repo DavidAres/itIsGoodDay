@@ -12,5 +12,5 @@ import org.koin.dsl.module
 val appModule = module(override = true) {
     single {HomeFragment()}
     viewModel { HomeViewModel(get(), get()) }
-    single { SettingsViewModel(get()) }
+    viewModel { SettingsViewModel(get()) }
 }
