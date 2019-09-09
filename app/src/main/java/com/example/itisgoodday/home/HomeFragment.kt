@@ -1,7 +1,9 @@
 package com.example.itisgoodday.home
 
 import android.arch.lifecycle.Observer
+import android.content.DialogInterface
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuInflater
 import android.widget.Toast
@@ -64,9 +66,16 @@ class HomeFragment : BaseFragment(), IHomeFragment {
     override fun manageSettingsError(error: ErrorSettings) {
         when (error) {
             ErrorSettings.EMPTY_SETTINGS -> {
-                context?.toast(getString(R.string.empty_settings), Toast.LENGTH_LONG)
-                (activity as MainActivity).nav_view.menu.getItem(1).isChecked = true
-                (activity as MainActivity).replaceFragment(SettingsFragment(), (activity as MainActivity).fragmentContainer.id)
+                val alert = AlertDialog.Builder(context!!)
+                alert.setTitle(getString(R.string.welcome_title))
+                alert.setMessage(getString(R.string.welcome_message))
+                alert.setPositiveButton(getString(R.string.welcome_configure)
+                ) { dialog, _ ->
+                    dialog.dismiss()
+                    (activity as MainActivity).nav_view.menu.getItem(1).isChecked = true
+                    (activity as MainActivity).replaceFragment(SettingsFragment(), (activity as MainActivity).fragmentContainer.id)
+                }
+                alert.show()
             }
             ErrorSettings.LOAD_ERROR_SETTINGS -> {
                 context?.toast(getString(R.string.error_load_settings))
