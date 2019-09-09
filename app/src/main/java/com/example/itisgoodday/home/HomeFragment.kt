@@ -88,7 +88,10 @@ class HomeFragment : BaseFragment(), IHomeFragment {
 
     override fun manageWeatherError(error: ErrorWeather) {
         when (error){
-            ErrorWeather.LOAD_ERROR -> context?.toast(getString(R.string.error_load_weather), Toast.LENGTH_LONG)
+            ErrorWeather.LOAD_ERROR -> {
+                homeFragmentTitle.text = getString(R.string.error_loading_weather)
+                animationForResult.setAnimation("817-no-internet-connection.json")
+            }
         }
     }
 

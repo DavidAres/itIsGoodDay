@@ -20,4 +20,5 @@
     <string name ="welcome_message">Welcome to Is it a good day?, first of all, we have to configure how is a good day for you</string>
     <string name ="welcome_title">Information</string>
     <string name ="welcome_configure">Configure</string>
+    <string name ="error_loading_weather">Sorry, we are not able to load the weather for today!</string>
 </resources>
