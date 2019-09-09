@@ -28,6 +28,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
@@ -35,5 +36,13 @@ class MainActivity : BaseActivity() {
         ft.addToBackStack(null)
         ft.add( fragmentContainer.id,HomeFragment())
         ft.commit()
+    }
+
+    override fun onBackPressed() {
+        var currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+        if (currentFragment is HomeFragment) {
+            this.finishAffinity()
+        }
+        super.onBackPressed()
     }
 }
