@@ -14,8 +14,8 @@
     <string name ="max_temperature">Max temperature</string>
     <string name ="cities">Cities</string>
     <string name ="subtitle_settings">How is a good day for you?</string>
-    <string name ="good_day_response">Is a good day in </string>
-    <string name ="bad_day_response">Is a bad day in </string>
+    <string name ="good_day_response">It is a good day in </string>
+    <string name ="bad_day_response">It is a bad day in </string>
     <string name ="checking">Checking the weather for today... </string>
     <string name ="welcome_message">Welcome to Is it a good day?, first of all, we have to configure how is a good day for you</string>
     <string name ="welcome_title">Information</string>
